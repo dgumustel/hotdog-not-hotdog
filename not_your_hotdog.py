@@ -6,16 +6,15 @@ import tensorflow
 from PIL import Image
 import numpy as np
 
+
+
 st.title('Not Your Dog')
 
 st.write("So you've got a thing for hotdogs, great! We love them too!")
 st.write("Upload your best picture and we'll tell you if it's a hotdog or not.")
 
-# user upload file
-file = st.file_uploader("Upload your image here...", type=["png","jpg"])
-# st.write(file)
-# preprocess image
-if file is not None:
+@st.cache(ttl=60, max_entries=10)
+def analyze_image(file):
     hotdog = Image.open(file)
     # hotdog.save('new_image.jpg')
     rgb_im = hotdog.convert('RGB')
@@ -38,5 +37,12 @@ if file is not None:
     else:
         st.write("I don't know what that is, but it ain't a hotdog...")
     st.image(file, use_column_width=True)
+
+# user upload file
+file = st.file_uploader("Upload your image here...", type=["png","jpg"])
+# st.write(file)
+# preprocess image
+if file is not None:
+    analyze_image(file)
 
 
