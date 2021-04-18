@@ -30,20 +30,20 @@ def analyze_image(file):
 # with open('', mode='rb') as pickle_in:
 #     model = pickle.load(pickle_in)
     results = model.predict(hotdog_array)
-    
-# st.write(results[0][0])
-if results[0][0] >= 0.5:
-    st.write("What a beautiful hotdog!")
-    st.balloons()
-else:
-    st.write("I don't know what that is, but it ain't a hotdog...")
-st.image(file, use_column_width=True)
+    returns results
+
 
 # user upload file
 file = st.file_uploader("Upload your image here...", type=["png","jpg"])
 # st.write(file)
 # preprocess image
 if file is not None:
-    analyze_image(file)
-
+    results = analyze_image(file)
+    
+    if results[0][0] >= 0.5:
+        st.write("What a beautiful hotdog!")
+        st.balloons()
+    else:
+        st.write("I don't know what that is, but it ain't a hotdog...")
+    st.image(file, use_column_width=True)
 
