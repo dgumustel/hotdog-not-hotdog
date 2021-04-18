@@ -13,7 +13,7 @@ st.title('Not Your Dog')
 st.write("So you've got a thing for hotdogs, great! We love them too!")
 st.write("Upload your best picture and we'll tell you if it's a hotdog or not.")
 
-@st.cache(ttl=60, max_entries=10)
+@st.cache(ttl=10, max_entries=2)
 def analyze_image(file):
     hotdog = Image.open(file)
     # hotdog.save('new_image.jpg')
@@ -30,13 +30,14 @@ def analyze_image(file):
 # with open('', mode='rb') as pickle_in:
 #     model = pickle.load(pickle_in)
     results = model.predict(hotdog_array)
-    st.balloons()
+    
 # st.write(results[0][0])
-    if results[0][0] >= 0.5:
-        st.write("What a beautiful hotdog!")
-    else:
-        st.write("I don't know what that is, but it ain't a hotdog...")
-    st.image(file, use_column_width=True)
+if results[0][0] >= 0.5:
+    st.write("What a beautiful hotdog!")
+    st.balloons()
+else:
+    st.write("I don't know what that is, but it ain't a hotdog...")
+st.image(file, use_column_width=True)
 
 # user upload file
 file = st.file_uploader("Upload your image here...", type=["png","jpg"])
