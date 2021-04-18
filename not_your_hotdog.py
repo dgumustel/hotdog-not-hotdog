@@ -30,7 +30,7 @@ def analyze_image(file):
 # with open('', mode='rb') as pickle_in:
 #     model = pickle.load(pickle_in)
     results = model.predict(hotdog_array)
-    returns results
+    return results
 
 
 # user upload file
